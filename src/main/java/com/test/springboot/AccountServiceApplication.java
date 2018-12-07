@@ -7,8 +7,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import domain.Account;
-import repository.AccountRepository;
+import com.test.springboot.domain.Account;
+import com.test.springboot.repository.AccountRepository;
 
 @SpringBootApplication
 @EnableEurekaClient

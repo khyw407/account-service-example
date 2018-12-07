@@ -1,4 +1,4 @@
-package controller;
+package com.test.springboot.controller;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import domain.Account;
-import repository.AccountRepository;
+import com.test.springboot.domain.Account;
+import com.test.springboot.repository.AccountRepository;
 
 @RestController
 public class AccountController {
