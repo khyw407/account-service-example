@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: account-service
+spec:
+  type: ClusterIP
+  selector:
+    app: spring-cloud-account-service
+  ports:
+  - protocol: TCP
+    port: 8091
+    targetPort: 8091
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-cloud-account-service
+  labels:
+    app: spring-cloud-account-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-cloud-account-service
+  template:
+    metadata:
+      labels:
+        app: spring-cloud-account-service
+        version: latest
+    spec:
+      containers:
+      - name: spring-cloud-account-service
+        image: 192.168.0.8:5000/account-service:latest
+        ports:
+        - name: http
+          containerPort: 8091
