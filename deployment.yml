@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: account-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: spring-cloud-account-service
   ports:
