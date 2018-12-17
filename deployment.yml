@@ -1,3 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: account-service
+spec:
+  rules:
+  - host: account-service.192.168.0.9.nip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: account-service
+          servicePort: 30923
+---
 kind: Service
 apiVersion: v1
 metadata:
