@@ -8,3 +8,8 @@ spring:
     config:
       uri:
       - http://configuration.development.svc.cluster.local:8888
+    consul:
+      host: http://consul.development.svc.cluster.local
+      port: 8500
+      config:
+        format: FILES
