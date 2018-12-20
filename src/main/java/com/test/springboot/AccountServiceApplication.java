@@ -6,6 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import com.test.springboot.domain.Account;
 import com.test.springboot.repository.AccountRepository;
@@ -22,6 +23,16 @@ public class AccountServiceApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AccountServiceApplication.class, args);
+	}
+	
+	@Bean
+	public CommonsRequestLoggingFilter requestLoggingFilter() {
+	    CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+	    loggingFilter.setIncludePayload(true);
+	    loggingFilter.setIncludeHeaders(true);
+	    loggingFilter.setMaxPayloadLength(1000);
+	    loggingFilter.setAfterMessagePrefix("REQ:");
+	    return loggingFilter;
 	}
 	
 	@Bean

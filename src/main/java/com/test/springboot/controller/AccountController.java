@@ -1,7 +1,10 @@
 package com.test.springboot.controller;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +14,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.springboot.domain.Account;
 import com.test.springboot.repository.AccountRepository;
 
 @RestController
 public class AccountController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
+	private ObjectMapper mapper = new ObjectMapper();
+	
 	@Autowired
 	AccountRepository repository;
 	
@@ -31,9 +40,13 @@ public class AccountController {
 	}
 	
 	@PutMapping("/withdraw/{id}/{amount}")
-	public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) {
+	public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) throws JsonProcessingException {
 		Account account = repository.findById(id);
 		account.setBalance(account.getBalance() - amount);
+		
+		LOGGER.info("Account found : {}", mapper.writeValueAsString(account));
+		LOGGER.info("Current balance: {}", mapper.writeValueAsString(Collections.singletonMap("balance", account.getBalance())));
+		
 		return repository.update(account);
 	}
 	
