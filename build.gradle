@@ -41,11 +41,10 @@ docker{
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-consul-all')
 	implementation('org.springframework.cloud:spring-cloud-starter-config')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	compile('org.springframework.cloud:spring-cloud-starter-consul-discovery')
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

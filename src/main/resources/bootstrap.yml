@@ -11,5 +11,3 @@ spring:
     consul:
       host: http://consul.development.svc.cluster.local
       port: 8500
-      config:
-        format: FILES
