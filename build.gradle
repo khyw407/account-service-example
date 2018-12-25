@@ -47,8 +47,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	compile('net.logstash.logback:logstash-logback-encoder:4.11')
 	compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
-	compile('org.springframework.cloud:spring-cloud-starter-sleuth')
-	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+	compile('org.springframework.cloud:spring-cloud-sleuth-zipkin')
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
