@@ -5,6 +5,21 @@ spring:
   application:
     name: account-service
   cloud:
+    stream:
+      bindings:
+        output:
+          destination: orders-in
+        input:
+          consumer:
+            partitioned: true
+          destination: orders-out
+          group: account
+      rabbit:
+        bindings:
+          output:
+            producer:
+              exchangeType: direct
+              routingKeyExpression: '"#"'
     config:
       uri:
       - http://configuration.development.svc.cluster.local:8888
@@ -17,6 +32,8 @@ spring:
     sampler:
       probability: 1.0
   rabbitmq:
+    host: 192.168.0.16
+    port: 5672
     listener:
         direct:
           retry:
