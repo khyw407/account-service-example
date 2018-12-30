@@ -1,5 +1,7 @@
 package com.test.springboot;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.discovery.DiscoveryClient;
+import com.netflix.discovery.shared.transport.jersey.EurekaJerseyClientImpl.EurekaJerseyClientBuilder;
 import com.test.springboot.domain.Account;
 import com.test.springboot.domain.Order;
 import com.test.springboot.repository.AccountRepository;
@@ -73,5 +77,24 @@ public class AccountServiceApplication {
 		accountRepository.add(new Account("1234567898", 50000, 3L));
 		
 		return accountRepository;
+	}
+	
+	@Bean
+	public DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs() throws NoSuchAlgorithmException {
+		DiscoveryClient.DiscoveryClientOptionalArgs args = new DiscoveryClient.DiscoveryClientOptionalArgs();
+		
+		System.setProperty("javax.net.ssl.keyStore", "src/main/resources/account.jks");
+		System.setProperty("javax.net.ssl.keyStorePassword", "1q2w3e4r5t!");
+		System.setProperty("javax.net.ssl.trustStore", "src/main/resources/account.jks");
+		System.setProperty("javax.net.ssl.trustStorePassword", "1q2w3e4r5t!");
+		
+		EurekaJerseyClientBuilder builder = new EurekaJerseyClientBuilder();
+		builder.withClientName("account-client");
+		builder.withSystemSSLConfiguration();
+		builder.withMaxTotalConnections(10);
+		builder.withMaxConnectionsPerHost(10);
+		args.setEurekaJerseyClient(builder.build());
+		
+		return args;
 	}
 }
